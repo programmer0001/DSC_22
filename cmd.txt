@@ -1,0 +1,7 @@
+        --- Creating local virtual environment ---
+
+python -m venv *env_name*
+env/Scripts/activate.bat //In CMD
+
+        --- Deactivate venv ---
+env/Scripts/activate.bat
