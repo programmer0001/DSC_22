@@ -38,6 +38,7 @@ class Question1:
                                 engine='openpyxl')
         return scim_en
 
+
     def answer_one(self):
         energy = self._query_energy()
         gdp = self._query_gdp()
@@ -51,7 +52,7 @@ class Question1:
         final_df = pd.merge(temp_df, gdp, on='Country', how='left')
 
         final_df.drop(final_df.tail(196).index, inplace=True)
-        final_df.drop(final_df.iloc[:, 1:3], axis=1, inplace=True)
+        final_df.drop(final_df.iloc[:, 2:4], axis=1, inplace=True)
         final_df.drop(final_df.iloc[:, 10:58], axis=1, inplace=True)
         final_df.drop(final_df.iloc[:, 21:28], axis=1, inplace=True)
 
@@ -62,4 +63,4 @@ if __name__ == "__main__":
     question1 = Question1()
     qa1 = question1.answer_one()
     print(tabulate(qa1, tablefmt='psql'))
-    qa1.to_excel('answer1.xlsx')
+    #qa1.to_excel('answer1.xlsx')
