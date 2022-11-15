@@ -8,6 +8,7 @@ What is the average GDP over the last 10 years for each country? (exclude missin
 This function should return a Series named avgGDP with 15 countries and their average GDP sorted in descending order.
 """
 
+
 def answer_two():
     question1 = Question1()
     top15 = question1.answer_one()
