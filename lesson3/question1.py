@@ -2,6 +2,15 @@ import pandas as pd
 import numpy as np
 from tabulate import tabulate
 
+"""
+Question 1
+
+Join the three datasets: Energy, GDP, and ScimEn into a new dataset (using the intersection of country names). Use only the 10 years (2006-2015) of GDP data and only the top 15 countries by Scimagojr 'Rank' (Rank 1 through 15).
+The index of this DataFrame should be the name of the country, and the columns should be
+['Rank', 'Documents', 'Citable documents', 'Citations', 'Self-citations', 'Citations per document', 'H index', 'Energy Supply', 'Energy Supply per Capita', '% Renewable', '2006', '2007', '2008', '2009', '2010', '2011', 2012', '2013', '2014', '2015']
+Function "answer_one" should return the resulted DataFrame (20 columns and 15 entries)
+"""
+
 
 class Question1:
 
@@ -44,23 +53,24 @@ class Question1:
         gdp = self._query_gdp()
         scim_en = self._query_scimen()
 
-        energy.set_index('Country')
-        gdp.set_index('Country')
-        scim_en.set_index('Country')
+        energy.set_index('Country', inplace=True)
+        gdp.set_index('Country', inplace=True)
+        scim_en.set_index('Country', inplace=True)
 
         temp_df = pd.merge(scim_en, energy, on='Country', how='left')
         final_df = pd.merge(temp_df, gdp, on='Country', how='left')
 
         final_df.drop(final_df.tail(196).index, inplace=True)
-        final_df.drop(final_df.iloc[:, 2:4], axis=1, inplace=True)
+        final_df.drop(final_df.iloc[:, 1:2], axis=1, inplace=True)
         final_df.drop(final_df.iloc[:, 10:58], axis=1, inplace=True)
         final_df.drop(final_df.iloc[:, 21:28], axis=1, inplace=True)
 
+        # print(final_df.to_string())
         return final_df
 
 
 if __name__ == "__main__":
     question1 = Question1()
     qa1 = question1.answer_one()
-    print(tabulate(qa1, tablefmt='psql'))
-    #qa1.to_excel('answer1.xlsx')
+    #print(qa1.to_string())
+    qa1.to_excel('answer1.xlsx')
