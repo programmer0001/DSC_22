@@ -21,9 +21,9 @@ for k in k_range:
     scores_list.append(metrics.accuracy_score(y_test, y_predict))
 
 # Show results
-the_best_neighbours = max(scores, key=scores.get)
 print("Scores: ")
 for i in scores:
     print(i, ' - ', scores[i])
+the_best_neighbours = max(scores, key=scores.get)
 print("The best score with {} neighbors. Score = {}".format(the_best_neighbours,
                                                             scores[the_best_neighbours]))

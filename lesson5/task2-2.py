@@ -31,8 +31,8 @@ print("The best score with {} neighbors. Score = {}".format(the_best_neighbours,
                                                             scores[the_best_neighbours]))
 
 fig, (ax1, ax2) = plt.subplots(1, 2)
-fig.suptitle('Horizontally stacked subplots')
-ax1.scatter(X[:, 0], X[:, 1], c=y,
+ax1.scatter(X_train[:, 0], X_train[:, 1], c=y_train,
             marker='o', s=30, cmap=cmap_bold)
-# ax2.plot(x, -y)
+ax2.scatter(X_test[:, 0], X_test[:, 1], c=y_test,
+            marker='o', s=30, cmap=cmap_bold)
 plt.show()
