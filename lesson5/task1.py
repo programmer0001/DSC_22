@@ -19,22 +19,20 @@ features_dict = {k: v for k, v in enumerate(labels)}
 df_iris['label_names'] = df_iris.label.apply(lambda x: features_dict[x])
 
 mst.print_df_info(df_iris, column_values_count='label_names')
-df_iris = df_iris.sample(frac=1)  # shuffle  # alternative # from sklearn.utils import shuffle
-mst.print_df_info(df_iris, column_values_count='label_names')  # print general information about data
+df_iris = df_iris.sample(frac=1)
+mst.print_df_info(df_iris, column_values_count='label_names')
 
-train_df, test_df = train_test_split_df(df_iris)
+train_df, test_df = train_test_split_df(df_iris, 0.9)
 # print(train_df.columns)
 print('len(train_df)={:,}'.format(len(train_df)))
 print('len(test_df)={:,}'.format(len(test_df)))
 
-X_train = train_df[['sepal length (cm)', 'sepal width (cm)',
-                    'petal length (cm)', 'petal width (cm)']]
-y_train = train_df['label_names']
-print(X_train.to_string())
-print(y_train.to_string())
-X_test = test_df[['sepal length (cm)', 'sepal width (cm)',
-                  'petal length (cm)', 'petal width (cm)']]
-y_test = test_df['label_names']
+X_train = train_df[['sepal length (cm)', 'sepal width (cm)']]
+                   # 'petal length (cm)', 'petal width (cm)']]
+y_train = train_df['label']
+X_test = test_df[['sepal length (cm)', 'sepal width (cm)']]
+                  # 'petal length (cm)', 'petal width (cm)']]
+y_test = test_df['label']
 
 print('X_train.shape=', X_train.shape)
 print('y_train.shape=', y_train.shape)
@@ -56,7 +54,7 @@ n_neighbors = 5
 clf = KNN_classifier(k_number=n_neighbors)
 clf.fit(X_test_scaled, y_train)
 
-# print('score train = {:.3f}'.format(clf.score(X_train_scaled, y_train)))
+print('score train = {:.3f}'.format(clf.score(X_train_scaled, y_train)))
 print('score test = {:.3f}'.format(clf.score(X_test_scaled, y_test)))
 
 target_observation = pd.Series({'sepal length (cm)': 5.0,
