@@ -10,6 +10,10 @@ X, y = make_blobs(n_samples=300, n_features=2, centers=8,
                   cluster_std=1.3, random_state=4)
 y = y % 2
 
+print(type(X))
+print(type(y))
+print(X[:10], '\n')
+print(y[:10], '\n')
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2,
                                                     random_state=4)
 k_range = range(1, 26)
