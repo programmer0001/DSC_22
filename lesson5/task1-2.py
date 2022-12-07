@@ -20,6 +20,8 @@ for k in k_range:
     scores[k] = metrics.accuracy_score(y_test, y_predict)
     scores_list.append(metrics.accuracy_score(y_test, y_predict))
 
+print("Features = {}. Label = {}.".format(X_test[0], knn.predict([X_test[0]])))
+# print(y_predict)
 # Show results
 print("Scores: ")
 for i in scores:
