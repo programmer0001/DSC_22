@@ -5,24 +5,24 @@ import nltk
 import pandas as pd
 from nltk.stem import PorterStemmer
 from scipy.io import loadmat
-from sklearn.svm import SVC
+# from sklearn.svm import SVC
 from sklearn.svm import LinearSVC
 
 
-def get_sample(fn):
-    with open(fn, 'r') as f:
-        content = f.read()
-    return content
+def get_sample(fn1):
+    with open(fn1, 'r') as f:
+        content1 = f.read()
+    return content1
 
 
-def word_tokenize(content):
+def word_tokenize(content1):
     """
     content: str - body of mail
     return: list of tokens (str) e.g. ['>', 'Anyone', 'knows', 'how', 'much', 'it', 'costs', 'to', 'host', 'a']
     """
     # YOUR_CODE.  Split the content to tokens. You may need re.split()
     # START_CODE
-    token = np.array(nltk.casual_tokenize(content))
+    token = np.array(nltk.casual_tokenize(content1))
     # END_CODE
 
     return token
@@ -108,17 +108,17 @@ def get_vocabulary(fn1):
     return vocabl
 
 
-def represent_features(token, vocab):
+def represent_features(token, vocabulary):
     """
     tokens: ndarry of str
     return: ndarry of binary values 1 if word from vocabulary is in mail 0 otherwise
     """
     # YOUR_CODE. Compute the array with 1/0 corresponding to is word from vocabulary in mail
     # START_CODE
-    tokens_represented = np.zeros(len(token))
-    for i in token:
-        if i in vocab:
-            tokens_represented[np.where(token == i)[0]] = 1
+    tokens_represented = np.zeros(len(vocabulary))
+    for i in vocabulary:
+        if i in token:
+            tokens_represented[np.where(vocabulary == i)[0]] = 1
     # END_CODE
 
     print('{} word(s) from vocab are in the tokens.'.format(np.sum(tokens_represented)))
@@ -126,7 +126,7 @@ def represent_features(token, vocab):
     return tokens_represented
 
 
-def preprocess(content, vocab):
+def preprocess(_content, _vocab):
     """
     content: str - body of mail
     vocab: ndarray of str - list of considered words
@@ -135,7 +135,7 @@ def preprocess(content, vocab):
     # START_CODE
 
     # tokenize content
-    token = word_tokenize(content)
+    token = word_tokenize(_content)
 
     # make lower case
     token = lower_case(token)
@@ -150,28 +150,25 @@ def preprocess(content, vocab):
     token = stem_tokens(token)
 
     # convert to binary array of features
-    tokens_represented = represent_features(token, vocab)
+    tokens_represented = represent_features(token, _vocab)
     # END_CODE
 
     return tokens_represented
 
 
 def check_spam():  # arr_binary):
-    fn = os.path.join(os.getcwd(), 'data/spamTrain.mat')
+    fn1 = os.path.join(os.getcwd(), 'data/spamTrain.mat')
 
-    mat = loadmat(fn)
-    X_train = mat['X'][:, :62]
+    mat = loadmat(fn1)
+    X_train = mat['X']
     y_train = mat['y'].ravel()
 
     print('X_train.shape= ', X_train.shape)
     print('y_train.shape= ', y_train.shape)
-    print("Types X, y: ", type(X_train), type(y_train))
-    print("X train 0 shape = ", X_train[0].shape)
-    print("y train 0 = ", y_train[0])
 
-    fn = os.path.join(os.getcwd(), 'data/spamTest.mat')
-    mat = loadmat(fn)
-    X_test = mat['Xtest'][:, :62]
+    fn1 = os.path.join(os.getcwd(), 'data/spamTest.mat')
+    mat = loadmat(fn1)
+    X_test = mat['Xtest']
     y_test = mat['ytest'].ravel()
 
     print('X_test.shape= {}', X_test.shape)
@@ -179,7 +176,7 @@ def check_spam():  # arr_binary):
     index = 0
     print('Sample with index  ={}: \n{}'.format(index, X_train[index]))
 
-    clf = SVC(kernel='sigmoid', gamma=1.0)
+    clf = LinearSVC(C=1)
     clf.fit(X_train, y_train)
     print('Score train= {}'.format(clf.score(X_train, y_train)))
     print('Score test= {}'.format(clf.score(X_test, y_test)))
@@ -197,14 +194,13 @@ if __name__ == '__main__':
     fn = os.path.join(os.getcwd(), 'data/vocab.txt')
     vocab = get_vocabulary(fn)
 
-
     for sfn in ['data/emailSample1.txt', 'data/emailSample2.txt', 'data/spamSample1.txt', 'data/spamSample2.txt']:
         fn = os.path.join(os.getcwd(), sfn)
         content = get_sample(fn)
 
         # YOUR_CODE.  Preprocess the sample and get prediction 0 or 1 (1 is spam)
         # START_CODE
-        # tokens = preprocess(content, vocab)
+        tokens = preprocess(content, vocab)
         prediction = check_spam().predict([tokens])
         # END_CODE
 
