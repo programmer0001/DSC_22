@@ -204,7 +204,7 @@ if __name__ == '__main__':
 
         # YOUR_CODE.  Preprocess the sample and get prediction 0 or 1 (1 is spam)
         # START_CODE
-        tokens = preprocess(content, vocab)
+        # tokens = preprocess(content, vocab)
         prediction = check_spam().predict([tokens])
         # END_CODE
 
