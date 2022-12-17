@@ -15,4 +15,4 @@ def gradient_descent(
     return vector
 
 
-gradient_descent(gradient=lambda v: 2 * v, start=10.0, learn_rate=0.8)
+print(gradient_descent(gradient=lambda v: 2 * v, start=10.0, learn_rate=0.8))
