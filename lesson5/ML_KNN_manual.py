@@ -7,9 +7,8 @@ import math
 import numpy as np
 
 
-def train_test_split_df(df,
-                        percentage=0.75):  # there is alternative from sklearn.model_selection import train_test_split
-    # TODO: find how this function works "help(train_test_split_df)"
+def train_test_split_df(df, percentage=0.75):
+    # there is alternative from sklearn.model_selection import train_test_split
     """
     Splits df into two df
     sample of using

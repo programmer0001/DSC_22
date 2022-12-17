@@ -39,7 +39,11 @@ def answer_seven(ContinentDict):
     n = len(countries_population.iloc[:, 1])
     # TODO: line 42: ValueError: Must have equal len keys and value when setting with an iterable
     for i in range(n):
-        final_df.iloc[i, 3] = countries_population[list(ContinentDict.keys())].std(axis=1, skipna=True)
+        print(i, n)
+        aa = countries_population[list(ContinentDict.keys())].std(axis=1, skipna=True)
+        print(aa, "\n")
+        print(final_df)
+        final_df.iloc[i, 3] = aa[i]
 
     return final_df
 

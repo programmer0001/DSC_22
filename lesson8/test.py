@@ -207,5 +207,3 @@ if __name__ == '__main__':
         print('{} is {}\n'.format(sfn, ('Not Spam', 'Spam')[prediction[0]]))
 
     print('Latter sample:\n{1}\n{0}\n{1}'.format(content, '=' * 50))
-    # TODO: lesson 7 - wrong matrix shape
-    #       lesson 8 - unknown shape of tokens_represented and check_spam don't return anything
