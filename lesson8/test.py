@@ -7,6 +7,7 @@ from nltk.stem import PorterStemmer
 from scipy.io import loadmat
 # from sklearn.svm import SVC
 from sklearn.svm import LinearSVC
+from sklearn.datasets import load
 
 
 def get_sample(fn1):
